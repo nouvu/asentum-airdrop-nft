@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asentum Airdrop — Mint NFT | 35 ASE</title>
+<style>
+  :root{--bg:#070a18;--card:#121832;--card2:#0d1228;--line:#26315f;--txt:#eef2ff;--mut:#aab4d8;--acc:#7c9cff;--acc2:#ffb020;--ok:#5eeaa0;--err:#ff9a9a}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:radial-gradient(900px 500px at 20% -10%,#24366e 0,transparent 60%),var(--bg);color:var(--txt)}
+  .wrap{max-width:600px;margin:0 auto;padding:24px 16px 40px}
+  .pills{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:18px}
+  .pill{border:1px solid var(--line);background:#121832;border-radius:999px;padding:7px 12px;font-size:13px;color:var(--mut)}
+  .pill b{color:var(--ok)}
+  .card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:20px;padding:22px}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+  .stat{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:12px}
+  .stat span{display:block;font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
+  .stat b{font-size:20px}
+  .mono{font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all;font-size:13px;background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:10px;display:block}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 20px}
+  button{border:0;border-radius:12px;padding:13px 18px;font-size:16px;font-weight:700;cursor:pointer}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .primary{background:var(--acc);color:#fff}
+  .gold{background:var(--acc2);color:#1a1200}
+  .ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  h2{font-size:22px;margin:0 0 10px}
+  p{color:var(--mut);line-height:1.65}
+  .qty{display:flex;align-items:center;gap:12px;margin:14px 0}
+  .qty button{width:46px;height:46px;padding:0;font-size:22px;background:var(--card2);color:var(--txt);border:1px solid var(--line)}
+  .qty b{font-size:26px;min-width:34px;text-align:center;color:var(--txt)}
+  .total{display:flex;justify-content:space-between;font-size:18px;font-weight:700;border-top:1px solid var(--line);padding-top:14px;margin-top:6px;color:var(--txt)}
+  #status{min-height:26px;margin-top:12px}
+  .ok{color:var(--ok)} .err{color:var(--err)}
+  .steps{margin-top:22px}
+  .step{display:flex;gap:14px;margin-top:16px}
+  .num{font-size:22px;font-weight:800;color:var(--acc2);min-width:22px}
+  .step h3{margin:0 0 4px;font-size:17px}
+  .step p{margin:0}
+  .fine{font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="pills">
+    <span class="pill">Asentum Testnet · Chain 1423</span>
+    <span class="pill">Public mint: <b id="mintState">OPEN</b></span>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><span>Price</span><b>35 ASE</b></div>
+    <div class="stat"><span>Minted</span><b id="supplyNum">…</b></div>
+    <div class="stat"><span>Total supply</span><b>50.000</b></div>
+  </div>
+
+  <p style="margin:0 0 6px">Contract</p>
+  <span class="mono">ase1zyy5nfuh4za87w9rp3mg5gputjfy8ypmdsrpwe</span>
+  <div class="row">
+    <button class="ghost" id="copyContractBtn">📋 Copy contract</button>
+  </div>
+
+  <div class="card">
+    <h2>Mint your NFT</h2>
+    <p id="walletLine">Wallet not connected yet. You need the Asentum extension wallet, and enough testnet ASE to pay the mint price + gas.</p>
+    <button class="primary" id="connectBtn">Connect Asentum Wallet</button>
+    <div class="qty">
+      <button id="minusBtn" aria-label="Decrease quantity">−</button>
+      <b id="countNum">1</b>
+      <button id="plusBtn" aria-label="Increase quantity">+</button>
+      <span class="fine" style="color:var(--mut)">max 5 NFTs / transaction</span>
+    </div>
+    <div class="total"><span>Total</span><span id="totalText">35 ASE</span></div>
+    <p>The amount sent must exactly equal price × quantity, otherwise the transaction will fail.</p>
+    <button class="gold" id="mintBtn" disabled style="width:100%">Mint NFT</button>
+    <p id="status">Click “Connect Asentum Wallet” first, then choose a quantity and click Mint. All signing happens in your wallet.</p>
+    <p class="fine">⚠️ This page never asks for your seed phrase, private key, or wallet password. Anyone asking for those is a scam.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step"><div class="num">1</div><div><h3>Connect wallet</h3><p>Install the Asentum extension wallet, create a testnet wallet, get testnet ASE from the Asentum faucet, then click Connect Wallet above.</p></div></div>
+    <div class="step"><div class="num">2</div><div><h3>Choose &amp; Mint</h3><p>Choose 1–5 NFTs, check the total, click Mint, and approve the transaction in your wallet. Do not resend while waiting for confirmation.</p></div></div>
+    <div class="step"><div class="num">3</div><div><h3>Receive NFT</h3><p>When the transaction hash appears and the chain confirms it, the NFT will appear in your Asentum wallet.</p></div></div>
+  </div>
+</div>
+<script>
+var CONTRACT = "ase1zyy5nfuh4za87w9rp3mg5gputjfy8ypmdsrpwe";
+var RPC = "https://testnet.asentum.com";
+var PRICE_WEI = 35000000000000000000n;
+var count = 1;
+var $ = function(id){ return document.getElementById(id); };
+function setStatus(msg, cls){ var el = $("status"); el.textContent = msg; el.className = cls || ""; }
+function renderQty(){ $("countNum").textContent = count; $("totalText").textContent = (35 * count) + " ASE"; $("minusBtn").disabled = count <= 1; $("plusBtn").disabled = count >= 5; }
+/* ase1 helpers, cung thuat toan nhu @asentum/connect */
+var ASE1_CHARSET = "qpzry9x8gf2tvdw0s3jn54khce6mua7l";
+var ASE1_GEN = [996825010, 642813549, 513874426, 1027748829, 705979059];
+function ase1Polymod(values){ var chk=1; for(var i=0;i<values.length;i++){ var top=chk>>25; chk=((chk & 33554431)<<5)^values[i]; for(var j=0;j<5;j++) if((top>>j)&1) chk^=ASE1_GEN[j]; } return chk; }
+function ase1HrpExpand(hrp){ var ret=[],i; for(i=0;i<hrp.length;i++) ret.push(hrp.charCodeAt(i)>>5); ret.push(0); for(i=0;i<hrp.length;i++) ret.push(hrp.charCodeAt(i)&31); return ret; }
+function ase1ConvertBits(data,from,to,pad){ var acc=0,bits=0,ret=[],maxv=(1<<to)-1,maxAcc=(1<<(from+to-1))-1,i,value; for(i=0;i<data.length;i++){ value=data[i]; if(value<0||(value>>from)!==0) return null; acc=((acc<<from)|value)&maxAcc; bits+=from; while(bits>=to){ bits-=to; ret.push((acc>>bits)&maxv); } } if(pad){ if(bits>0) ret.push((acc<<(to-bits))&maxv); } else if(bits>=from||((acc<<(to-bits))&maxv)!==0) return null; return ret; }
+function ase1ToHex(addrIn){ if(!addrIn) return null; var s=String(addrIn).trim(); if(s!==s.toLowerCase()&&s!==s.toUpperCase()) return null; var lower=s.toLowerCase(); if(lower.indexOf("ase1")!==0) return null; var data=[],i,ch,v; for(i=4;i<lower.length;i++){ ch=lower.charAt(i); v=ASE1_CHARSET.indexOf(ch); if(v<0) return null; data.push(v); } if(data.length<6) return null; if(ase1Polymod(ase1HrpExpand("ase").concat(data))!==1) return null; var bytes=ase1ConvertBits(data.slice(0,-6),5,8,false); if(!bytes||bytes.length!==20) return null; var out="0x"; for(i=0;i<bytes.length;i++) out+=("0"+bytes[i].toString(16)).slice(-2); return out; }
+function view(method, args){
+  return fetch(RPC + "/view", { method:"POST", headers:{"content-type":"application/json"},
+    body: JSON.stringify({ contract: ase1ToHex(CONTRACT), method: method, args: args || [] }) })
+    .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
+    .then(function(j){ if(!j || !j.ok) throw new Error((j && j.reason) || "view failed"); return j.returnValue; });
+}
+function refreshOnChain(){
+  view("totalSupply", []).then(function(v){ $("supplyNum").textContent = v + " / 50.000"; })
+    .catch(function(){ $("supplyNum").textContent = "1+ / 50.000"; });
+  view("publicMintOpen", []).then(function(v){ $("mintState").textContent = (String(v) === "true" || v === true) ? "OPEN" : "CLOSED"; })
+    .catch(function(){ $("mintState").textContent = "OPEN"; });
+}
+function waitReceipt(txHash){
+  return new Promise(function(resolve, reject){
+    var start = Date.now();
+    (function poll(){
+      fetch(RPC + "/receipts/" + txHash).then(function(r){ return r.ok ? r.json() : null; }).then(function(j){
+        if (j && j.blockNumber) return resolve(j);
+        if (Date.now() - start > 90000) return reject(new Error("Waited 90 seconds without a receipt — do not resend yet, the transaction may still be pending."));
+        setTimeout(poll, 1500);
+      }).catch(function(){ if (Date.now() - start > 90000) return reject(new Error("Could not read the receipt.")); setTimeout(poll, 1500); });
+    })();
+  });
+}
+function copyText(text, doneMsg){
+  if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(function(){ setStatus(doneMsg, "ok"); }).catch(function(){ setStatus("Could not copy automatically, please copy manually: " + text, "err"); }); }
+  else { setStatus("Please copy manually: " + text, "err"); }
+}
+$("copyContractBtn").onclick = function(){ copyText(CONTRACT, "Contract copied."); };
+$("minusBtn").onclick = function(){ if (count > 1){ count--; renderQty(); } };
+$("plusBtn").onclick = function(){ if (count < 5){ count++; renderQty(); } };
+$("connectBtn").onclick = function(){
+  var p = window.asentum;
+  if (!p || typeof p.connect !== "function"){ setStatus("Asentum extension wallet not found in this browser. Install the Asentum wallet, create a testnet wallet, reload the page, and try again.", "err"); return; }
+  setStatus("Waiting for you to approve the connection in your wallet…");
+  p.connect().then(function(r){
+    var addr = (r && r.address) || r;
+    $("walletLine").textContent = "Wallet connected: " + addr;
+    $("mintBtn").disabled = false;
+    $("connectBtn").textContent = "Connected ✓";
+    setStatus("Wallet connected successfully.", "ok");
+  }).catch(function(e){ setStatus("Connection failed: " + (e && e.message ? e.message : e), "err"); });
+};
+$("mintBtn").onclick = function(){
+  var p = window.asentum;
+  if (!p || typeof p.callContract !== "function"){ setStatus("Wallet not connected — click Connect Wallet first.", "err"); return; }
+  var valueWei = (PRICE_WEI * BigInt(count)).toString();
+  setStatus("Waiting for you to approve " + count + " NFT(s) (" + (35 * count) + " ASE) in your wallet…");
+  p.callContract({ to: ase1ToHex(CONTRACT), method: "publicMint", args: [String(count)], value: valueWei })
+    .then(function(r){
+      var txHash = (r && r.txHash) || r;
+      setStatus("Transaction sent: " + txHash + " — waiting for chain confirmation, do not resend…");
+      return waitReceipt(txHash).then(function(){ return txHash; });
+    })
+    .then(function(txHash){
+      setStatus("Mint successful! Tx: " + txHash + ". Your new NFT will appear in your Asentum wallet.", "ok");
+      refreshOnChain();
+    })
+    .catch(function(e){ setStatus("Mint failed: " + (e && e.message ? e.message : e) + " (check your ASE balance, that public mint is still open, and max 5 per transaction).", "err"); });
+};
+renderQty();
+refreshOnChain();
+</script>
+</body>
+</html>
